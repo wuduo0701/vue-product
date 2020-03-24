@@ -17,7 +17,7 @@
           <span>{{row.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="OrderDate" prop="orderDate" align="center" width="500">
+      <el-table-column label="OrderDate" prop="orderDate" align="center" width="400">
         <template slot-scope="{row}">
           <span>{{row.orderDate}}</span>
         </template>
@@ -29,12 +29,27 @@
       </el-table-column>
       <el-table-column label="邮费" prop="Fee" align="center" width="200">
         <template slot-scope="{row}">
-          <span>{{row.Fee}}</span>
+          <span>{{row.shippingFee}}</span>
         </template>
       </el-table-column>
       <el-table-column label="单价" prop="price" align="center" width="200">
         <template slot-scope="{row}">
-          <span>{{row.price}}</span>
+          <span>{{row.total}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="城市" prop="city" align="center" width="200">
+        <template slot-scope="{row}">
+          <span>{{row.city}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="地址" prop="street" align="center" width="200">
+        <template slot-scope="{row}">
+          <span>{{row.street}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="电话" prop="phone" align="center" width="200">
+        <template slot-scope="{row}">
+          <span>{{row.phone}}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -74,13 +89,17 @@ export default {
     // setTimeout(() => {
     //   this.listLoading = false
     // }, 1000)
-    Axios.post('/api/orders', {
+    Axios.get('/api/orders', {
       params: {
-
+        page: this.page,
+        limit: this.limit
       }
     })
     .then(res => {
-      this.list = res.data.orders;
+      console.log(res);
+      // this.list = res.data.result;
+      this.total = res.data.total
+      this.list = res.data.result;
       setTimeout(() => {
         this.listLoading = false
       }, 1000)
