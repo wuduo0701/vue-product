@@ -6,18 +6,18 @@
         <img src="../assets/logo.png" alt="">
       </div>
       <!-- 表单 -->
-      <el-form  label-width="0px" class="login_form">
+      <el-form ref="Ref_form" :model="loginform" label-width="0px" :rules="rules" class="login_form">
         <!-- 用户名 -->
-        <el-form-item>
-          <el-input prefix-icon="el-icon-user"></el-input>
+        <el-form-item prop="username">
+          <el-input prefix-icon="el-icon-user" v-model="loginform.username"></el-input>
         </el-form-item>
         <!-- 密码 -->
-        <el-form-item>
-          <el-input prefix-icon="el-icon-lock"></el-input>
+        <el-form-item prop="password">
+          <el-input prefix-icon="el-icon-lock" v-model="loginform.password" type="password"></el-input>
         </el-form-item>
         <el-form-item class="btns">
-          <el-button type="primary">登入</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="primary" @click="login">登入</el-button>
+          <el-button type="info" @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -25,7 +25,42 @@
 </template>
 <script>
 export default {
-  
+  data() {
+    return{
+      //登入表单
+      loginform:{
+        username: "",
+        password: ""
+      },
+      //表单验证规则
+      rules:{
+        //用户
+        username: [
+          {required: true, message: "请输入用户名", trigger: 'blur'},
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ],
+        //密码
+        password: [
+          {required: true, message: "请输入密码", trigger: 'blur'},
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods:{
+    //重置表单
+    resetForm(){
+      this.$refs.Ref_form.resetFields()
+    },
+    //表单登入的验证
+    login(){
+      this.$refs.Ref_form.validate(validate => {
+        // console.log(validate)
+        if(!validate)
+          return;
+      })
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

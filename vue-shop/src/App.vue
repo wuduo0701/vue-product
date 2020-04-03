@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    app跟组件
-    <!-- <router-view/> -->
+    <!-- app根组件 -->
+    <router-view/>
   </div>
 </template>
 
