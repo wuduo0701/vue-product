@@ -29,8 +29,8 @@ export default {
     return{
       //登入表单
       loginform:{
-        username: "",
-        password: ""
+        username: "admin",
+        password: "123456"
       },
       //表单验证规则
       rules:{
@@ -54,10 +54,18 @@ export default {
     },
     //表单登入的验证
     login(){
-      this.$refs.Ref_form.validate(validate => {
+      this.$refs.Ref_form.validate(async validate => {
         // console.log(validate)
         if(!validate)
           return;
+        const {data: res} = await this.$http.post('login', this.loginform)
+        if(res.meta.status !== 200)
+        // this.message是element-ui原型链上的，接受不同的参数使用不同的提示框
+          return this.$message.error('登入失败');
+        this.$message.success('登入成功')
+        //将登入成功后的token，保存到客户端的 sessionStorage中
+        window.sessionStorage.setItem('token', res.data.token);
+        this.$router.push('/home')
       })
     }
   }
