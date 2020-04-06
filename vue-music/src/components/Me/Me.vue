@@ -8,23 +8,23 @@
 			<i class="el-icon-arrow-right right-arrow"></i>
     </div>
 		<div class="line"></div>	
-		<div class="message">
+		<div class="message" @click="Message">
 			<i class="el-icon-chat-round icon"></i>
 			<div class="content">消息</div>
 		</div>
 		<div class="line"></div>
-		<div class="message">
+		<div class="message" @click="like">
 			<i class="el-icon-star-off icon"></i>
 			<div class="content">我的喜欢</div>
 		</div>
 		<div class="line"></div>
-		<div class="message">
+		<div class="message" @click="Download">
 			<i class="el-icon-download icon"></i>
 			<div class="content">下载的音乐</div>
 			<div class="musicNum">{{download}} 首</div>
 		</div>
 		<div class="line"></div>		
-		<div class="message">
+		<div class="message" @click="Likelist">
 			<i class="el-icon-refresh-right icon"></i>
 			<div class="content">最近播放</div>
 			<div class="musicNum">{{Recent_music}} 首</div>
@@ -49,6 +49,18 @@ export default {
 	methods:{
 		SetMe(){
 			this.$router.push('/setme')
+		},
+		Message(){
+			this.$router.push('/message')
+		},
+		like(){
+			this.$router.push('/like')
+		},
+		Download(){
+			this.$router.push('/download')
+		},
+		Likelist(){
+			this.$router.push('/likelist')
 		}
 	}
 }
